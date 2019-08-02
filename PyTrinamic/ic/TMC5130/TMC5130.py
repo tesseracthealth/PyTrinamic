@@ -4,12 +4,13 @@ Created on 02.01.2019
 @author: ed
 '''
 
+from PyTrinamic.ic.IC import IC
 from PyTrinamic.ic.TMC5130.TMC5130_register import TMC5130_register
 from PyTrinamic.ic.TMC5130.TMC5130_register_variant import TMC5130_register_variant
 from PyTrinamic.ic.TMC5130.TMC5130_fields import TMC5130_fields
 from PyTrinamic.helpers import TMC_helpers
 
-class TMC5130():
+class TMC5130(IC):
     """
     Class for the TMC5130 IC
     """

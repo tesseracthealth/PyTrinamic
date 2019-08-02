@@ -4,13 +4,13 @@ Created on 06.03.2019
 @author: ED
 '''
 
-from PyTrinamic.ic.ic_interface import ic_interface
+from PyTrinamic.ic.IC import IC
 from PyTrinamic.ic.TMC6200.TMC6200_register import TMC6200_register
 from PyTrinamic.ic.TMC6200.TMC6200_register_variant import TMC6200_register_variant
 from PyTrinamic.ic.TMC6200.TMC6200_fields import TMC6200_fields
 from PyTrinamic.helpers import TMC_helpers
 
-class TMC6200(ic_interface):
+class TMC6200(IC):
 
     def __init__(self, parent):
         self.parent = parent

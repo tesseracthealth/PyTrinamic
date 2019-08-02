@@ -4,13 +4,13 @@ Created on 02.01.2019
 @author: ed
 '''
 
-from PyTrinamic.ic.ic_interface import ic_interface
+from PyTrinamic.ic.IC import IC
 from PyTrinamic.ic.TMC4672.TMC4672_register import TMC4672_register
 from PyTrinamic.ic.TMC4672.TMC4672_register_variant import TMC4672_register_variant
 from PyTrinamic.ic.TMC4672.TMC4672_fields import TMC4672_fields
 from PyTrinamic.helpers import TMC_helpers
 
-class TMC4672(ic_interface):
+class TMC4672(IC):
 
     def __init__(self, parent):
         self.parent = parent

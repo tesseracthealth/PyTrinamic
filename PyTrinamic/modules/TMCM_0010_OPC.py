@@ -4,7 +4,9 @@ Created on 01.01.2019
 @author: ED
 '''
 
-class TMCM_0010_OPC(object):
+from Module import Module
+
+class TMCM_0010_OPC(Module):
 
     " brake chopper parameter "
     AP_SupplyVoltage            = 0

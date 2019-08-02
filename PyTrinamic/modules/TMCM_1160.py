@@ -4,7 +4,9 @@ Created on 09.04.2019
 @author: ED, AH, LH
 '''
 
-class TMCM_1160(object):
+from Module import Module
+
+class TMCM_1160(Module):
 
     # Axis Parameters
     AP_TargetPosition               = 0

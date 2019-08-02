@@ -4,12 +4,13 @@ Created on 18.04.2019
 @author: LH
 '''
 
+from PyTrinamic.ic.IC import IC
 from PyTrinamic.ic.TMC5041.TMC5041_register import TMC5041_register
 from PyTrinamic.ic.TMC5041.TMC5041_register_variant import TMC5041_register_variant
 from PyTrinamic.ic.TMC5041.TMC5041_fields import TMC5041_fields
 from PyTrinamic.helpers import TMC_helpers
 
-class TMC5041():
+class TMC5041(IC):
     """
     Class for the TMC5041 IC
     """
@@ -21,6 +22,9 @@ class TMC5041():
         self.variants   = TMC5041_register_variant
 
         self.MOTORS     = 2
+
+    def showChipInfo(self):
+        print("TMC5041 chip info: ?")
 
     def writeRegister(self, registerAddress, value, channel):
         raise NotImplementedError

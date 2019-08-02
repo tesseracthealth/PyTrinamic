@@ -4,7 +4,9 @@ Created on 21.05.2019
 @author: LH
 '''
 
-class TMCM_1161():
+from Module import Module
+
+class TMCM_1161(Module):
 
     # Axis Parameters
     AP_TargetPosition               = 0
@@ -220,4 +222,3 @@ class TMCM_1161():
 
     def digitalInput(self, x):
         return self.connection.digitalInput(x)
-
