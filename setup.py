@@ -24,6 +24,7 @@ setuptools.setup(
         "pyserial>=3"
     ],
     py_modules=[
+        "PyTrinamic/connections",
         "PyTrinamic/connections/connection_interface",
         "PyTrinamic/connections/ConnectionManager",
         "PyTrinamic/connections/dummy_tmcl_interface",
@@ -68,7 +69,8 @@ setuptools.setup(
         "PyTrinamic/modules/TMCM_6212",
         "PyTrinamic/helpers",
         "PyTrinamic/cli",
-        "PyTrinamic/version"
+        "PyTrinamic/version",
+        "PyTrinamic/xml/XMLHandler"
     ],
     scripts=[
         "PyTrinamic/examples/evalboards/TMC4671/TMC4671_eval_BLDC_ABN_encoder_offset_estimation.py",
