@@ -66,8 +66,8 @@ class TMCM_1670(Module):
         self.__default_motor = 0
 
     # axis parameter access
-    def axisParameter(self, apType):
-        return self.connection.axisParameter(apType, self.__default_motor)
+    def getAxisParameter(self, apType):
+        return self.connection.getAxisParameter(apType, self.__default_motor)
 
     def setAxisParameter(self, apType, value):
         self.connection.setAxisParameter(apType, self.__default_motor, value)
@@ -84,10 +84,10 @@ class TMCM_1670(Module):
         self.setAxisParameter(self.AP_TargetPosition, position)
 
     def targetPosition(self):
-        return self.axisParameter(self.AP_TargetPosition)
+        return self.getAxisParameter(self.AP_TargetPosition)
 
     def actualPosition(self):
-        return self.axisParameter(self.AP_ActualPosition)
+        return self.getAxisParameter(self.AP_ActualPosition)
 
     def setActualPosition(self, position):
         return self.setAxisParameter(self.AP_ActualPosition, position)
@@ -96,48 +96,48 @@ class TMCM_1670(Module):
         self.setAxisParameter(self.AP_TargetVelocity, velocity)
 
     def actualVelocity(self):
-        return self.axisParameter(self.AP_ActualVelocity)
+        return self.getAxisParameter(self.AP_ActualVelocity)
 
     # helpful functions
 
     def maxVelocity(self):
-        return self.axisParameter(self.AP_MaxVelocity)
+        return self.getAxisParameter(self.AP_MaxVelocity)
 
     def setMaxVelocity(self, maxVelocity):
         self.setAxisParameter(self.AP_MaxVelocity, maxVelocity)
 
     def maxTorque(self):
-        return self.axisParameter(self.AP_MaxTorque)
+        return self.getAxisParameter(self.AP_MaxTorque)
 
     def setMaxTorque(self, maxTorque):
         self.setAxisParameter(self.AP_MaxTorque, maxTorque)
 
     def openLoopTorque(self):
-        return self.axisParameter(self.AP_StartCurrent)
+        return self.getAxisParameter(self.AP_StartCurrent)
 
     def setOpenLoopTorque(self, torque):
         self.setAxisParameter(self.AP_StartCurrent, torque)
 
     def acceleration(self):
-        return self.axisParameter(self.AP_Acceleration)
+        return self.getAxisParameter(self.AP_Acceleration)
 
     def setAcceleration(self, acceleration):
         self.setAxisParameter(self.AP_Acceleration, acceleration)
 
     def targetReachedVelocity(self):
-        return self.axisParameter(self.AP_TargetReachedVelocity)
+        return self.getAxisParameter(self.AP_TargetReachedVelocity)
 
     def setTargetReachedVelocity(self, velocity):
         self.setAxisParameter(self.AP_TargetReachedVelocity, velocity)
 
     def targetReachedDistance(self):
-        return self.axisParameter(self.AP_TargetReachedDistance)
+        return self.getAxisParameter(self.AP_TargetReachedDistance)
 
     def setTargetReachedDistance(self, distance):
         self.setAxisParameter(self.AP_TargetReachedDistance, distance)
 
     def motorHaltedVelocity(self):
-        return self.axisParameter(self.AP_MotorHaltedVelocity)
+        return self.getAxisParameter(self.AP_MotorHaltedVelocity)
 
     def setMotorHaltedVelocity(self, velocity):
         self.setAxisParameter(self.AP_MotorHaltedVelocity, velocity)
@@ -146,67 +146,67 @@ class TMCM_1670(Module):
         return ((self.statusFlags() & self.FLAG_POSITION_END) != 0)
 
     def rampEnabled(self):
-        return self.axisParameter(self.AP_EnableRamp)
+        return self.getAxisParameter(self.AP_EnableRamp)
 
     def setRampEnabled(self, enable):
         self.setAxisParameter(self.AP_EnableRamp, enable)
 
     def torquePParameter(self):
-        return self.axisParameter(self.AP_TorqueP)
+        return self.getAxisParameter(self.AP_TorqueP)
 
     def setTorquePParameter(self, pValue):
         self.setAxisParameter(self.AP_TorqueP, pValue)
 
     def torqueIParameter(self):
-        return self.axisParameter(self.AP_TorqueI)
+        return self.getAxisParameter(self.AP_TorqueI)
 
     def setTorqueIParameter(self, pValue):
         self.setAxisParameter(self.AP_TorqueI, pValue)
 
     def velocityPParameter(self):
-        return self.axisParameter(self.AP_VelocityP)
+        return self.getAxisParameter(self.AP_VelocityP)
 
     def setVelocityPParameter(self, pValue):
         self.setAxisParameter(self.AP_VelocityP, pValue)
 
     def velocityIParameter(self):
-        return self.axisParameter(self.AP_VelocityI)
+        return self.getAxisParameter(self.AP_VelocityI)
 
     def setVelocityIParameter(self, pValue):
         self.setAxisParameter(self.AP_VelocityI, pValue)
 
     def positionPParameter(self):
-        return self.axisParameter(self.AP_PositionP)
+        return self.getAxisParameter(self.AP_PositionP)
 
     def setPositionPParameter(self, pValue):
         self.setAxisParameter(self.AP_PositionP, pValue)
 
     def motorPoles(self):
-        return self.axisParameter(self.AP_MotorPoles)
+        return self.getAxisParameter(self.AP_MotorPoles)
 
     def setMotorPoles(self, poles):
         self.setAxisParameter(self.AP_MotorPoles, poles)
 
     def encoderInitMode(self):
-        return self.axisParameter(self.AP_EncoderInitMode)
+        return self.getAxisParameter(self.AP_EncoderInitMode)
 
     def setEncoderInitMode(self, mode):
         self.setAxisParameter(self.AP_EncoderInitMode, mode)
 
     def encoderResolution(self):
-        return self.axisParameter(self.AP_EncoderSteps)
+        return self.getAxisParameter(self.AP_EncoderSteps)
 
     def setEncoderResolution(self, steps):
         self.setAxisParameter(self.AP_EncoderSteps, steps)
 
     def encoderDirection(self):
-        return self.axisParameter(self.AP_EncoderDirection)
+        return self.getAxisParameter(self.AP_EncoderDirection)
 
     def setEncoderDirection(self, direction):
         self.setAxisParameter(self.AP_EncoderDirection, direction)
 
     def commutationMode(self):
-        return self.axisParameter(self.AP_CommutationMode)
+        return self.getAxisParameter(self.AP_CommutationMode)
 
     def setCommutationMode(self, mode):
         self.setAxisParameter(self.AP_CommutationMode, mode)
@@ -216,7 +216,7 @@ class TMCM_1670(Module):
         self.setAxisParameter(self.AP_ClearOnNull, 1)
 
     def statusFlags(self):
-        return self.axisParameter(self.AP_StatusFlags)
+        return self.getAxisParameter(self.AP_StatusFlags)
 
     def analogInput(self, x):
         return self.connection.analogInput(x)

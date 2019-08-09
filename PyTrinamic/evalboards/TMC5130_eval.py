@@ -33,6 +33,66 @@ class TMC5130_eval(TMC5130):
         (28, 28)
     ]
 
+    __AXIS_PARAMETERS = {
+        "par::TargetPosition": 0,
+        "par::ActualPosition": 1,
+        "par::TargetVelocity": 2,
+        "par::ActualVelocity": 3,
+        "par::MaxVelocity": 4,
+        "par::MaxAcceleration": 5,
+        "par::MaxCurrent": 6,
+        "par::StandbyCurrent": 7,
+        "par::PositionReachedFlag": 8,
+        "par::RightEndstop": 10,
+        "par::LeftEndstop": 11,
+        "par::AutomaticRightStop": 12,
+        "par::AutomaticLeftStop": 13,
+        "par::SW_MODE": 14,
+        "par::A1": 15,
+        "par::V1": 16,
+        "par::MaxDeceleration": 17,
+        "par::D1": 18,
+        "par::StartVelocity": 19,
+        "par::StopVelocity": 20,
+        "par::RampWaitTime": 21,
+        "par::THIGH": 23,
+        "par::VDCMIN": 24,
+        "par::HighSpeedChopperMode": 27,
+        "par::HighSpeedFullstepMode": 28,
+        "par::MeasuredSpeed": 29,
+        "par::I_scale_analog": 33,
+        "par::internal_Rsense": 34,
+        "par::MicrostepResolution": 140,
+        "par::ChopperBlankTime": 162,
+        "par::ConstantTOffMode": 163,
+        "par::DisableFastDecayComparator": 164,
+        "par::ChopperHysteresisEnd": 165,
+        "par::ChopperHysteresisStart": 166,
+        "par::TOff": 167,
+        "par::SEIMIN": 168,
+        "par::SECDS": 169,
+        "par::smartEnergyHysteresis": 170,
+        "par::SECUS": 171,
+        "par::smartEnergyHysteresisStart": 172,
+        "par::SG2FilterEnable": 173,
+        "par::SG2Threshold": 174,
+        "par::VSense": 179,
+        "par::smartEnergyActualCurrent": 180,
+        "par::smartEnergyStallVelocity": 181,
+        "par::smartEnergyThresholdSpeed": 182,
+        "par::RandomTOffMode": 184,
+        "par::ChopperSynchronization": 185,
+        "par::PWMThresholdSpeed": 186,
+        "par::PWMGrad": 187,
+        "par::PWMAmplitude": 188,
+        "par::PWMFrequency": 191,
+        "par::PWMAutoscale": 192,
+        "par::FreewheelingMode": 204,
+        "par::LoadValue": 206,
+        "par::EncoderPosition": 209,
+        "par::EncoderResolution": 210
+    }
+
     def __init__(self, connection, moduleID=1):
         """
         Parameters:
@@ -67,3 +127,6 @@ class TMC5130_eval(TMC5130):
             moduleID = self._MODULE_ID
 
         return self.__connection.readMC(registerAddress, moduleID, signed)
+
+    def axisParameter(self, strParameter):
+        return self.__AXIS_PARAMETERS.get(strParameter)

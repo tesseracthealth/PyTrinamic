@@ -123,7 +123,7 @@ class TMCM_6212(Module):
         if not(0 <= axis < self.MOTORS):
             raise ValueError("Axis index out of range")
 
-        return self.__connection.axisParameter(apType, axis)
+        return self.__connection.getAxisParameter(apType, axis)
 
     def setAxisParameter(self, apType, axis, value):
         if not(0 <= axis < self.MOTORS):

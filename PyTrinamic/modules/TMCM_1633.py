@@ -77,7 +77,7 @@ class TMCM_1633(Module):
 
     # axis parameter access
     def axisParameter(self, apType):
-        return self.connection.axisParameter(apType, self.motor)
+        return self.connection.getAxisParameter(apType, self.motor)
 
     def setAxisParameter(self, apType, value):
         self.connection.setAxisParameter(apType, self.motor, value)
