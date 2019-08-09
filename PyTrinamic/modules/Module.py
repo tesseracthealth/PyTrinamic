@@ -1,3 +1,6 @@
+# Created on: 09.08.2019
+# Author: LK
+
 class Module(object):
     def hasFeature(self, feature):
         return isinstance(self, feature)

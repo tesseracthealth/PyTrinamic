@@ -93,7 +93,7 @@ class TMC5130_eval(TMC5130):
         "par::EncoderResolution": 210
     }
 
-    def __init__(self, connection, channel):
+    def __init__(self, channel):
         """
         Parameters:
             connection:
@@ -106,14 +106,12 @@ class TMC5130_eval(TMC5130):
         """
         TMC5130.__init__(self, channel)
 
-        self.__connection = connection
-
     # Use the motion controller functions for register access
-    def writeRegister(self, registerAddress, value, moduleID=1):
-        return self.__connection.writeMC(registerAddress, value, moduleID)
-
-    def readRegister(self, registerAddress, moduleID=1, signed=False):
-        return self.__connection.readMC(registerAddress, moduleID, signed)
+    # def writeRegister(self, registerAddress, value, moduleID=1):
+    #     return self.__connection.writeMC(registerAddress, value, moduleID)
+    #
+    # def readRegister(self, registerAddress, moduleID=1, signed=False):
+    #     return self.__connection.readMC(registerAddress, moduleID, signed)
 
     def axisParameter(self, strParameter):
         return self.__AXIS_PARAMETERS.get(strParameter)
