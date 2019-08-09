@@ -7,12 +7,14 @@ Created on 24.07.2019
 from Module import Module
 
 class Landungsbruecke(Module, StallGuard2Module):
-    GP_VitalSignsErrorMask  = 1
-    GP_DriversEnable        = 2
-    GP_DebugMode            = 3
-    GP_BoardAssignment      = 4
-    GP_HWID                 = 5
-    GP_PinState             = 6
+    __GLOBAL_PARAMETERS = {
+        "par::VitalSignsErrorMask": 1,
+        "par::DriversEnable": 2,
+        "par::DebugMode": 3,
+        "par::BoardAssignment": 4,
+        "par::HWID": 5,
+        "par::PinState": 6
+    }
 
     # Constructor
     def __init__(self, connection, evalboard, moduleId=None):
@@ -52,6 +54,13 @@ class Landungsbruecke(Module, StallGuard2Module):
 
     def setAxisParameter(self, commandType, axis, value):
         return self.getConnection().setAxisParameter(commandType, axis, value, self.getModuleId())
+
+    # Use the motion controller functions for register access
+    def writeRegister(self, registerAddress, value):
+        return self.getConnection().writeMC(registerAddress, value, self.getModuleId())
+
+    def readRegister(self, registerAddress, signed=False):
+        return self.getConnection().readMC(registerAddress, self.getModuleId(), signed)
 
     def hasFeature(self, feature):
         # Check if I have the feature as mixin
