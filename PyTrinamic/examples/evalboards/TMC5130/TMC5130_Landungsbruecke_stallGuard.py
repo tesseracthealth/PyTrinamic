@@ -22,6 +22,10 @@ CHANGE_DIR   = True
 
 PyTrinamic.showInfo()
 
+myInterface = serial_tmcl_interface(PyTrinamic.firstAvailableComPort(USB=True))
+eval = TMC5130_eval(myInterface)
+module = Landungsbruecke(myInterface)
+
 connection, evalboard, moduleId=None
 
 module = Landungsbruecke()

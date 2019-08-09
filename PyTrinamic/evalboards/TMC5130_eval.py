@@ -93,7 +93,7 @@ class TMC5130_eval(TMC5130):
         "par::EncoderResolution": 210
     }
 
-    def __init__(self, connection, moduleID=1):
+    def __init__(self, connection, channel):
         """
         Parameters:
             connection:
@@ -103,29 +103,16 @@ class TMC5130_eval(TMC5130):
                     connection.writeMC(registerAddress, value, moduleID)
                     connection.readMC(registerAddress, moduleID, signed)
                 for writing/reading to registers of the TMC5130.
-            moduleID:
-                Type: int, optional, default value: 1
-                The TMCL module ID of the TMC5130. This ID is used as a
-                parameter for the writeMC and readMC functions.
         """
-        TMC5130.__init__(self, moduleID)
+        TMC5130.__init__(self, channel)
 
         self.__connection = connection
-        self._MODULE_ID = moduleID
 
     # Use the motion controller functions for register access
-    def writeRegister(self, registerAddress, value, moduleID=None):
-        # If the moduleID argument is omitted, use the stored module ID
-        if not moduleID:
-            moduleID = self._MODULE_ID
-
+    def writeRegister(self, registerAddress, value, moduleID=1):
         return self.__connection.writeMC(registerAddress, value, moduleID)
 
-    def readRegister(self, registerAddress, moduleID=None, signed=False):
-        # If the moduleID argument is omitted, use the stored module ID
-        if not moduleID:
-            moduleID = self._MODULE_ID
-
+    def readRegister(self, registerAddress, moduleID=1, signed=False):
         return self.__connection.readMC(registerAddress, moduleID, signed)
 
     def axisParameter(self, strParameter):
