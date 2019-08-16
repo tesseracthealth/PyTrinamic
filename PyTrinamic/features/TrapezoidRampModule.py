@@ -4,11 +4,11 @@ class TrapezoidRampModule(TrapezoidRamp):
     def trapezoidRamp_setTargetPosition(self, axis, value):
         self.setAxisParameter(self.axisParameter("par::TargetPosition"), axis, value)
     def trapezoidRamp_getTargetPosition(self, axis):
-        return self.getAxisParameter(self.axisParameter("par::TargetPosition"), axis)
+        return self.getAxisParameter(self.axisParameter("par::TargetPosition"), axis, signed=True)
     def trapezoidRamp_setActualPosition(self, axis, value):
         self.setAxisParameter(self.axisParameter("par::ActualPosition"), axis, value)
     def trapezoidRamp_getActualPosition(self, axis):
-        return self.getAxisParameter(self.axisParameter("par::ActualPosition"), axis)
+        return self.getAxisParameter(self.axisParameter("par::ActualPosition"), axis, signed=True)
     def trapezoidRamp_setTargetVelocity(self, axis, value):
         self.setAxisParameter(self.axisParameter("par::TargetVelocity"), axis, value)
     def trapezoidRamp_getTargetVelocity(self, axis):

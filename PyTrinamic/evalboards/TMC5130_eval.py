@@ -98,7 +98,7 @@ class TMC5130_eval(Evalboard, StallGuard2Module, TrapezoidRampModule):
 
     def __init__(self, moduleId=1, connection=None, parent=None):
         super().__init__(moduleId, connection, parent)
-        self.setIC(TMC5130(channel=0, moduleId=moduleId, connection=connection))
+        self.setIC(TMC5130(channel=0, moduleId=self.getModuleId(), connection=self.getConnection()))
 
     # Use the motion controller functions for register access
     def writeRegister(self, channel, registerAddress, value):
@@ -111,3 +111,27 @@ class TMC5130_eval(Evalboard, StallGuard2Module, TrapezoidRampModule):
 
     def axisParameter(self, strParameter):
         return self.__AXIS_PARAMETERS.get(strParameter)
+
+    # Motion Control functions
+    def rotate(self, value):
+        self.trapezoidRamp_setMaximumAcceleration(0, 1000)
+        if value >= 0:
+            self.trapezoidRamp_setTargetVelocity(0, value)
+            self.getIC().writeRegisterField(self.getIC().fields.RAMPMODE, 1)
+        else:
+            self.trapezoidRamp_setTargetVelocity(0, -value)
+            self.getIC().writeRegisterField(self.getIC().fields.RAMPMODE, 2)
+
+    def stop(self):
+        self.rotate(0)
+
+    def moveTo(self, position, velocity):
+        self.getIC().writeRegisterField(self.getIC().fields.RAMPMODE, 0)
+        if velocity != 0:
+            self.trapezoidRamp_setTargetVelocity(0, value)
+        self.trapezoidRamp_setTargetPosition(0, value)
+
+    def moveBy(self, motor, distance, velocity):
+        position = self.trapezoidRamp_getTargetPosition(0)
+        self.moveTo(motor, position + distance, velocity)
+        return position + distance

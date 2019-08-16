@@ -7,6 +7,7 @@ class Module(object):
         self.__submodules = []
         self.__connection = connection
         if(parent):
+            parent.addSubmodule(self)
             self.__connection = parent.getConnection()
         if(connection):
             self.__connection = connection
