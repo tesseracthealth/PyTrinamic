@@ -13,7 +13,9 @@ class StallGuard2Module(StallGuard2):
         self.setAxisParameter(self.axisParameter("par::SG2Threshold"), axis, value)
     def stallGuard2_getStallGuardThreshold(self, axis):
         return self.getAxisParameter(self.axisParameter("par::SG2Threshold"), axis)
+    # Requires coolStep feature
     def stallGuard2_setStallVelocity(self, axis, value):
         return self.setAxisParameter(self.axisParameter("par::smartEnergyStallVelocity"), axis, value)
+    # Requires coolStep feature
     def stallGuard2_getStallVelocity(self, axis):
         return self.getAxisParameter(self.axisParameter("par::smartEnergyStallVelocity"), axis)
