@@ -4,9 +4,12 @@ Created on 09.01.2019
 @author: LK, ED, LH
 '''
 
+from PyTrinamic.evalboards.Evalboard import Evalboard
 from PyTrinamic.ic.TMC5130.TMC5130 import TMC5130
+from PyTrinamic.features.StallGuard2Module import StallGuard2Module
+from PyTrinamic.features.TrapezoidRampModule import TrapezoidRampModule
 
-class TMC5130_eval(TMC5130):
+class TMC5130_eval(Evalboard, StallGuard2Module, TrapezoidRampModule):
     """
     This class represents a TMC5130 Evaluation board.
 
@@ -93,25 +96,18 @@ class TMC5130_eval(TMC5130):
         "par::EncoderResolution": 210
     }
 
-    def __init__(self, channel):
-        """
-        Parameters:
-            connection:
-                Type: class
-                A class that provides the neccessary functions for communicating
-                with a TMC5130. The required functions are
-                    connection.writeMC(registerAddress, value, moduleID)
-                    connection.readMC(registerAddress, moduleID, signed)
-                for writing/reading to registers of the TMC5130.
-        """
-        TMC5130.__init__(self, channel)
+    def __init__(self, moduleId=1, connection=None, parent=None):
+        super().__init__(moduleId, connection, parent)
+        self.setIC(TMC5130(channel=0, moduleId=moduleId, connection=connection))
 
     # Use the motion controller functions for register access
-    # def writeRegister(self, registerAddress, value, moduleID=1):
-    #     return self.__connection.writeMC(registerAddress, value, moduleID)
-    #
-    # def readRegister(self, registerAddress, moduleID=1, signed=False):
-    #     return self.__connection.readMC(registerAddress, moduleID, signed)
+    def writeRegister(self, channel, registerAddress, value):
+        del channel
+        self.getIC().writeRegister(registerAddress, value)
+
+    def readRegister(self, channel, registerAddress, signed=False):
+        del channel
+        return self.getIC().readRegister(registerAddress, signed)
 
     def axisParameter(self, strParameter):
         return self.__AXIS_PARAMETERS.get(strParameter)

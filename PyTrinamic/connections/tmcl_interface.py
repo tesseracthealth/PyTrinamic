@@ -190,11 +190,11 @@ class tmcl_interface():
         self.send(TMCL_Command.STGP, commandType, bank, 0, moduleID)
 
     # Register access functions
-    def writeMC(self, registerAddress, value, moduleID=None):
-        return self.send(TMCL_Command.WRITE_MC, registerAddress, 0, value, moduleID)
+    def writeMC(self, channel, registerAddress, value, moduleID=None):
+        return self.send(TMCL_Command.WRITE_MC, registerAddress, channel, value, moduleID)
 
-    def readMC(self, registerAddress, moduleID=None, signed=False):
-        value = self.send(TMCL_Command.READ_MC, registerAddress, 0, 0, moduleID).value
+    def readMC(self, channel, registerAddress, moduleID=None, signed=False):
+        value = self.send(TMCL_Command.READ_MC, registerAddress, channel, 0, moduleID).value
         return TMC_helpers.toSigned32(value) if signed else value
 
     def writeDRV(self, registerAddress, value, moduleID=None):

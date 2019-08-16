@@ -39,6 +39,9 @@ eval = TMC5130_eval(channel=0)
 module = Landungsbruecke(connection=myInterface, evalboard=eval, moduleId=1)
 
 if(module.hasFeature(StallGuard2())):
-    logger.info("Landungsbruecke or Evalboard provides feature StallGuard2!")
+    logger.info("Landungsbruecke or Evalboard provide feature StallGuard2!")
 else:
     raise ValueError("Neither Landungsbruecke nor Evalboard provide feature StallGuard2!")
+
+module.stallGuard2_setStallGuardThreshold(0, SG_THRESHOLD)
+module.stallGuard2_setStallVelocity(0, SG_VELOCITY)
