@@ -11,6 +11,9 @@ class Evalboard(Module):
     def setIC(self, ic):
         self.__ics = []
         self.__ics.append(ic)
+        self.registers = ic.registers
+        self.fields = ic.fields
+        self.variants = ic.variants
     def getIC(self):
         if(self.__ics):
             return self.__ics[0]

@@ -109,6 +109,14 @@ class TMC5130_eval(Evalboard, StallGuard2Module, TrapezoidRampModule):
         del channel
         return self.getIC().readRegister(registerAddress, signed)
 
+    def writeRegisterField(self, channel, field, value):
+        del channel
+        return self.getIC().writeRegisterField(field, value)
+
+    def readRegisterField(self, channel, field):
+        del channel
+        return self.getIC().readRegisterField(field)
+
     def axisParameter(self, strParameter):
         return self.__AXIS_PARAMETERS.get(strParameter)
 
