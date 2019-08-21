@@ -7,6 +7,7 @@ from PyTrinamic.modules.Landungsbruecke import Landungsbruecke
 from PyTrinamic.connections.ConnectionManager import ConnectionManager
 from PyTrinamic.ic.TMC5130.TMC5130 import TMC5130
 from PyTrinamic.features.StallGuard2 import StallGuard2
+from PyTrinamic.helpers import TMC_helpers
 import time
 import logging
 
@@ -23,7 +24,7 @@ DELAY        = 2
 CHANGE_DIR   = True
 ################################################################################
 
-PyTrinamic.showInfo()
+TMC_helpers.showInfo()
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
