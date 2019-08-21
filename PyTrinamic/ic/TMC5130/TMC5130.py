@@ -15,21 +15,21 @@ class TMC5130(IC, StallGuard2IC, TrapezoidRampIC):
     """
     Class for the TMC5130 IC
     """
-    def __init__(self, channel=0, moduleId=1, connection=None):
-        super().__init__(channel, moduleId, connection)
+    def __init__(self, channel=0, moduleId=1, connection=None, parent=None):
+        self._MOTOR_COUNT = 1
+
+        super().__init__(channel, moduleId, connection, parent)
 
         self.registers  = TMC5130_register
         self.fields     = TMC5130_fields
         self.variants   = TMC5130_register_variant
-
-        self.MOTORS     = 1
 
     def showChipInfo(self):
         print("TMC5130 chip info: ?")
 
     # Motion Control functions
     def rotate(self, motor, value):
-        if not(0 <= motor < self.MOTORS):
+        if not(0 <= motor < self._MOTOR_COUNT):
             raise ValueError
 
         self.writeRegister(self.registers.AMAX, 1000)
@@ -45,7 +45,7 @@ class TMC5130(IC, StallGuard2IC, TrapezoidRampIC):
         self.rotate(motor, 0)
 
     def moveTo(self, motor, position, velocity):
-        if not(0 <= motor < self.MOTORS):
+        if not(0 <= motor < self._MOTOR_COUNT):
             raise ValueError
 
         self.writeRegister(self.registers.RAMPMODE, 0)
@@ -56,7 +56,7 @@ class TMC5130(IC, StallGuard2IC, TrapezoidRampIC):
         self.writeRegister(self.registers.XTARGET, position)
 
     def moveBy(self, motor, distance, velocity):
-        if not(0 <= motor < self.MOTORS):
+        if not(0 <= motor < self._MOTOR_COUNT):
             raise ValueError
 
         position = self.readRegister(self.registers.XACTUAL, signed=True)

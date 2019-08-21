@@ -3,14 +3,14 @@
 
 class Module(object):
     def __init__(self, moduleId=1, connection=None, parent=None):
+        self.__motors = []
         self.__moduleId = moduleId
         self.__submodules = []
         self.__connection = connection
+        self.__parent = parent
         if(parent):
             parent.addSubmodule(self)
             self.__connection = parent.getConnection()
-        if(connection):
-            self.__connection = connection
     def setConnection(self, connection):
         self.__connection = connection
     def setModuleId(self, moduleId):
@@ -25,6 +25,16 @@ class Module(object):
         self.__submodules.remove(submodule)
     def getSubmodules(self):
         return self.__submodules
+    def addMotor(self, motor):
+        self.__motors.append(motor)
+        if(self.__parent):
+            self.__parent.addMotor(motor)
+    def removeMotor(self, motor):
+        self.__motors.remove(motor)
+        if(self.__parent):
+            self.__parent.removeMotor(motor)
+    def getMotors(self):
+        return self.__motors
     def hasFeature(self, feature, recursive=False):
         if(isinstance(self, feature)):
             return True

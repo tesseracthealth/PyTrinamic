@@ -98,7 +98,7 @@ class TMC5130_eval(Evalboard, StallGuard2Module, TrapezoidRampModule):
 
     def __init__(self, moduleId=1, connection=None, parent=None):
         super().__init__(moduleId, connection, parent)
-        self.setIC(TMC5130(channel=0, moduleId=self.getModuleId(), connection=self.getConnection()))
+        self.setIC(TMC5130(channel=0, moduleId=self.getModuleId(), connection=self.getConnection(), parent=self))
 
     # Use the motion controller functions for register access
     def writeRegister(self, channel, registerAddress, value):
