@@ -38,3 +38,5 @@ class Motor(object):
         self.__features[feature][0], self.__features[feature][self.__features[feature].index([p for p in self.__features[feature] if p[0] == provider][0])] = self.__features[feature][self.__features[feature].index([p for p in self.__features[feature] if p[0] == provider][0])], self.__features[feature][0]
     def hasFeature(self, feature):
         return (True if self.__features.get(feature) else False)
+    def listFeatures(self):
+        return self.__features.keys()

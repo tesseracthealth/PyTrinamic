@@ -10,19 +10,22 @@ from PyTrinamic.ic.TMC5130.TMC5130_register_variant import TMC5130_register_vari
 from PyTrinamic.ic.TMC5130.TMC5130_fields import TMC5130_fields
 from PyTrinamic.features.StallGuard2IC import StallGuard2IC
 from PyTrinamic.features.TrapezoidRampIC import TrapezoidRampIC
+from PyTrinamic.helpers import TMC_helpers
 
 class TMC5130(IC, StallGuard2IC, TrapezoidRampIC):
     """
     Class for the TMC5130 IC
     """
     def __init__(self, channel=0, moduleId=1, connection=None, parent=None):
-        self._MOTOR_COUNT = 1
-
         super().__init__(channel, moduleId, connection, parent)
 
         self.registers  = TMC5130_register
         self.fields     = TMC5130_fields
         self.variants   = TMC5130_register_variant
+
+        self._MOTOR_COUNT = 1
+
+        self.addMotors(self._MOTOR_COUNT)
 
     def showChipInfo(self):
         print("TMC5130 chip info: ?")

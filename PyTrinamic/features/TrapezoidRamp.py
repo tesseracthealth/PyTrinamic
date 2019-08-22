@@ -2,9 +2,8 @@
 # Created on: 21.08.2019
 
 from PyTrinamic.features.Feature import Feature
-from PyTrinamic.features.FeatureProvider import FeatureProvider
 
-class TrapezoidRamp(Feature, FeatureProvider):
+class TrapezoidRamp(Feature):
     def trapezoidRamp_setTargetPosition(self, value, axis):
         raise NotImplementedError()
     def trapezoidRamp_getTargetPosition(self, axis):

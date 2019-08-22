@@ -2,8 +2,9 @@
 # Created on: 21.08.2019
 
 from PyTrinamic.features.StallGuard2 import StallGuard2
+from PyTrinamic.features.FeatureProvider import FeatureProvider
 
-class StallGuard2IC(StallGuard2):
+class StallGuard2IC(StallGuard2, FeatureProvider):
     def stallGuard2_setFilterEnabled(self, value, axis=None):
         return self.writeRegisterField(self.fields.SFILT, value, (axis if axis else self.getAxis()))
     def stallGuard2_getFilterEnabled(self, axis=None):

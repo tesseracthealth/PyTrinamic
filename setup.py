@@ -70,6 +70,7 @@ setuptools.setup(
         "PyTrinamic/modules/TMCM_1670",
         "PyTrinamic/modules/TMCM_6212",
         "PyTrinamic/Motor/Motor",
+        "PyTrinamic/Motor/MotorManager",
         "PyTrinamic/features/Feature",
         "PyTrinamic/features/FeatureProvider",
         "PyTrinamic/features/StallGuard2",

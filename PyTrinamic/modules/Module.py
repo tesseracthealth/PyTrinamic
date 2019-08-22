@@ -1,8 +1,11 @@
 # Created on: 09.08.2019
 # Author: LK
 
+from PyTrinamic.features.Feature import Feature
+from PyTrinamic.features.FeatureProvider import FeatureProvider
+
 class Module(object):
-    def __init__(self, moduleId=1, connection=None, parent=None, *submodules):
+    def __init__(self, moduleId=1, connection=None, parent=None, submodules=[]):
         self.__motors = []
         self.__moduleId = moduleId
         self.__submodules = []
@@ -28,8 +31,8 @@ class Module(object):
     def getSubmodules(self):
         return self.__submodules
     def addMotor(self, motor):
-        for feature in [f for f in self.__bases__ if instanceof(f, Feature)]:
-            motor.addFeatureProvider(feature, self, 1, len(self.__motors))
+        for feature in [f for f in self.__class__.__mro__ if ((self.__class__ != f) and isinstance(f(), Feature) and not isinstance(f(), FeatureProvider))]:
+            motor.addFeatureProvider(feature, self, 0, len(self.__motors))
         self.__motors.append(motor)
         if(self.__parent):
             self.__parent.addMotor(motor)

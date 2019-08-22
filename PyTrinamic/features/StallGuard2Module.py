@@ -2,12 +2,13 @@
 # Created on: 21.08.2019
 
 from PyTrinamic.features.StallGuard2 import StallGuard2
+from PyTrinamic.features.FeatureProvider import FeatureProvider
 
 # StallGuard2 feature interface mixin for modules
 # Module class needs to provide setAxisParameter, getAxisParameter and axisParameter functions
 # (no full TMCL implementation neccessary)
 
-class StallGuard2Module(StallGuard2):
+class StallGuard2Module(StallGuard2, FeatureProvider):
     def stallGuard2_setFilterEnabled(self, value, axis=None):
         self.setAxisParameter(self.axisParameter("par::SG2FilterEnable"), (axis if axis else self.getAxis()), value)
     def stallGuard2_getFilterEnabled(self, axis=None):

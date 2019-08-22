@@ -2,8 +2,9 @@
 # Created on: 21.08.2019
 
 from PyTrinamic.features.TrapezoidRamp import TrapezoidRamp
+from PyTrinamic.features.FeatureProvider import FeatureProvider
 
-class TrapezoidRampModule(TrapezoidRamp):
+class TrapezoidRampModule(TrapezoidRamp, FeatureProvider):
     def trapezoidRamp_setTargetPosition(self, value, axis=None):
         self.setAxisParameter(self.axisParameter("par::TargetPosition"), (axis if axis else self.getAxis()), value)
     def trapezoidRamp_getTargetPosition(self, axis=None):

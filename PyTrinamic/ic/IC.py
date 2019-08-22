@@ -3,6 +3,8 @@
 
 from PyTrinamic.helpers import TMC_helpers
 from PyTrinamic.Motor.Motor import Motor
+from PyTrinamic.features.Feature import Feature
+from PyTrinamic.features.FeatureProvider import FeatureProvider
 
 class IC(object):
     def __init__(self, channel=0, moduleId=1, connection=None, parent=None):
@@ -15,7 +17,8 @@ class IC(object):
             parent.addSubmodule(self)
             self.__connection = parent.getConnection()
             self.__moduleId = parent.getModuleId()
-        for i in range(0, self._MOTOR_COUNT, 1):
+    def addMotors(self, count):
+        for i in range(0, count, 1):
             self.addMotor(Motor(parent=self))
     def getConnection(self):
         return self.__connection
@@ -30,7 +33,7 @@ class IC(object):
     def setModuleId(self, moduleId):
         self.__moduleId = moduleId
     def addMotor(self, motor):
-        for feature in [f for f in self.__bases__ if instanceof(f, Feature)]:
+        for feature in [f for f in self.__class__.__mro__ if ((self.__class__ != f) and isinstance(f(), Feature) and not isinstance(f(), FeatureProvider))]:
             motor.addFeatureProvider(feature, self, 1, len(self.__motors))
         self.__motors.append(motor)
         if(self.__parent):

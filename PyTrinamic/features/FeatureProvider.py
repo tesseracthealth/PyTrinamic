@@ -3,8 +3,8 @@
 
 from PyTrinamic.features.Feature import Feature
 
-class FeatureProvider(Feature):
-    def __init__(self, axis):
+class FeatureProvider(object):
+    def __init__(self, axis=0):
         self.__axis = axis
     def getAxis(self):
         return self.__axis
