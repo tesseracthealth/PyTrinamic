@@ -1,51 +1,30 @@
+# Author: LK
+# Created on: 21.08.2019
+
 from PyTrinamic.features.TrapezoidRamp import TrapezoidRamp
 
 class TrapezoidRampModule(TrapezoidRamp):
     def trapezoidRamp_setTargetPosition(self, value, axis=None):
-        if not axis:
-            axis = self.getAxis()
-        self.setAxisParameter(self.axisParameter("par::TargetPosition"), axis, value)
+        self.setAxisParameter(self.axisParameter("par::TargetPosition"), (axis if axis else self.getAxis()), value)
     def trapezoidRamp_getTargetPosition(self, axis=None):
-        if not axis:
-            axis = self.getAxis()
-        return self.getAxisParameter(self.axisParameter("par::TargetPosition"), axis, signed=True)
+        return self.getAxisParameter(self.axisParameter("par::TargetPosition"), (axis if axis else self.getAxis()), signed=True)
     def trapezoidRamp_setActualPosition(self, value, axis=None):
-        if not axis:
-            axis = self.getAxis()
-        self.setAxisParameter(self.axisParameter("par::ActualPosition"), axis, value)
+        self.setAxisParameter(self.axisParameter("par::ActualPosition"), (axis if axis else self.getAxis()), value)
     def trapezoidRamp_getActualPosition(self, axis=None):
-        if not axis:
-            axis = self.getAxis()
-        return self.getAxisParameter(self.axisParameter("par::ActualPosition"), axis, signed=True)
+        return self.getAxisParameter(self.axisParameter("par::ActualPosition"), (axis if axis else self.getAxis()), signed=True)
     def trapezoidRamp_setTargetVelocity(self, value, axis=None):
-        if not axis:
-            axis = self.getAxis()
-        self.setAxisParameter(self.axisParameter("par::TargetVelocity"), axis, value)
+        self.setAxisParameter(self.axisParameter("par::TargetVelocity"), (axis if axis else self.getAxis()), value)
     def trapezoidRamp_getTargetVelocity(self, axis=None):
-        if not axis:
-            axis = self.getAxis()
-        return self.getAxisParameter(self.axisParameter("par::TargetVelocity"), axis)
+        return self.getAxisParameter(self.axisParameter("par::TargetVelocity"), (axis if axis else self.getAxis()))
     def trapezoidRamp_setActualVelocity(self, value, axis=None):
-        if not axis:
-            axis = self.getAxis()
-        self.setAxisParameter(self.axisParameter("par::ActualVelocity"), axis, value)
+        self.setAxisParameter(self.axisParameter("par::ActualVelocity"), (axis if axis else self.getAxis()), value)
     def trapezoidRamp_getActualVelocity(self, axis=None):
-        if not axis:
-            axis = self.getAxis()
-        return self.getAxisParameter(self.axisParameter("par::ActualVelocity"), axis)
+        return self.getAxisParameter(self.axisParameter("par::ActualVelocity"), (axis if axis else self.getAxis()))
     def trapezoidRamp_setMaximumVelocity(self, value, axis=None):
-        if not axis:
-            axis = self.getAxis()
-        self.setAxisParameter(self.axisParameter("par::MaxVelocity"), axis, value)
+        self.setAxisParameter(self.axisParameter("par::MaxVelocity"), (axis if axis else self.getAxis()), value)
     def trapezoidRamp_getMaximumVelocity(self, axis=None):
-        if not axis:
-            axis = self.getAxis()
-        return self.getAxisParameter(self.axisParameter("par::MaxVelocity"), axis)
+        return self.getAxisParameter(self.axisParameter("par::MaxVelocity"), (axis if axis else self.getAxis()))
     def trapezoidRamp_setMaximumAcceleration(self, value, axis=None):
-        if not axis:
-            axis = self.getAxis()
-        self.setAxisParameter(self.axisParameter("par::MaxAcceleration"), axis, value)
+        self.setAxisParameter(self.axisParameter("par::MaxAcceleration"), (axis if axis else self.getAxis()), value)
     def trapezoidRamp_getMaximumAcceleration(self, axis=None):
-        if not axis:
-            axis = self.getAxis()
-        return self.getAxisParameter(self.axisParameter("par::MaxAcceleration"), axis)
+        return self.getAxisParameter(self.axisParameter("par::MaxAcceleration"), (axis if axis else self.getAxis()))

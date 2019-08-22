@@ -1,3 +1,6 @@
+# Author: LK
+# Created on: 21.08.2019
+
 from PyTrinamic.features.TrapezoidRamp import TrapezoidRamp
 
 class TrapezoidRampIC(TrapezoidRamp):

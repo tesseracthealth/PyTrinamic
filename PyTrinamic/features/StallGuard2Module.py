@@ -1,3 +1,6 @@
+# Author: LK
+# Created on: 21.08.2019
+
 from PyTrinamic.features.StallGuard2 import StallGuard2
 
 # StallGuard2 feature interface mixin for modules
@@ -6,28 +9,16 @@ from PyTrinamic.features.StallGuard2 import StallGuard2
 
 class StallGuard2Module(StallGuard2):
     def stallGuard2_setFilterEnabled(self, value, axis=None):
-        if not axis:
-            axis = self.getAxis()
-        self.setAxisParameter(self.axisParameter("par::SG2FilterEnable"), axis, value)
+        self.setAxisParameter(self.axisParameter("par::SG2FilterEnable"), (axis if axis else self.getAxis()), value)
     def stallGuard2_getFilterEnabled(self, axis=None):
-        if not axis:
-            axis = self.getAxis()
-        return self.getAxisParameter(self.axisParameter("par::SG2FilterEnable"), axis)
+        return self.getAxisParameter(self.axisParameter("par::SG2FilterEnable"), (axis if axis else self.getAxis()))
     def stallGuard2_setStallGuardThreshold(self, value, axis=None):
-        if not axis:
-            axis = self.getAxis()
-        self.setAxisParameter(self.axisParameter("par::SG2Threshold"), axis, value)
+        self.setAxisParameter(self.axisParameter("par::SG2Threshold"), (axis if axis else self.getAxis()), value)
     def stallGuard2_getStallGuardThreshold(self, axis=None):
-        if not axis:
-            axis = self.getAxis()
-        return self.getAxisParameter(self.axisParameter("par::SG2Threshold"), axis)
+        return self.getAxisParameter(self.axisParameter("par::SG2Threshold"), (axis if axis else self.getAxis()))
     # Requires coolStep feature
     def stallGuard2_setStallVelocity(self, value, axis=None):
-        if not axis:
-            axis = self.getAxis()
-        return self.setAxisParameter(self.axisParameter("par::smartEnergyStallVelocity"), axis, value)
+        return self.setAxisParameter(self.axisParameter("par::smartEnergyStallVelocity"), (axis if axis else self.getAxis()), value)
     # Requires coolStep feature
     def stallGuard2_getStallVelocity(self, axis=None):
-        if not axis:
-            axis = self.getAxis()
-        return self.getAxisParameter(self.axisParameter("par::smartEnergyStallVelocity"), axis)
+        return self.getAxisParameter(self.axisParameter("par::smartEnergyStallVelocity"), (axis if axis else self.getAxis()))

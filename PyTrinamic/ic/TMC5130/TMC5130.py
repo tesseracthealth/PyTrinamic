@@ -27,6 +27,13 @@ class TMC5130(IC, StallGuard2IC, TrapezoidRampIC):
     def showChipInfo(self):
         print("TMC5130 chip info: ?")
 
+    def writeRegisterField(self, field, value, axis=None):
+        del axis
+        return self.writeRegister(field[0], TMC_helpers.field_set(self.readRegister(field[0]), field[1], field[2], value))
+    def readRegisterField(self, field, axis=None):
+        del axis
+        return TMC_helpers.field_get(self.readRegister(field[0]), field[1], field[2])
+
     # Motion Control functions
     def rotate(self, motor, value):
         if not(0 <= motor < self._MOTOR_COUNT):

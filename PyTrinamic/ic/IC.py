@@ -31,7 +31,7 @@ class IC(object):
         self.__moduleId = moduleId
     def addMotor(self, motor):
         for feature in [f for f in self.__bases__ if instanceof(f, Feature)]:
-            motor.addFeatureProvider(feature, self, 1)
+            motor.addFeatureProvider(feature, self, 1, len(self.__motors))
         self.__motors.append(motor)
         if(self.__parent):
             self.__parent.addMotor(motor)
@@ -39,6 +39,8 @@ class IC(object):
         self.__motors.remove(motor)
         if(self.__parent):
             self.__parent.removeMotor(motor)
+        for i, motor in enumerate(self.__motors):
+            motor.setProviderIndex(self, i)
     def getMotors(self):
         return self.__motors
     def hasFeature(self, feature, recursive=False):
@@ -56,6 +58,6 @@ class IC(object):
     def readRegister(self, registerAddress, signed=False):
         return self.getConnection().readMC(self.getChannel(), registerAddress, self.getModuleId(), signed)
     def writeRegisterField(self, field, value):
-        return self.writeRegister(field[0], TMC_helpers.field_set(self.readRegister(field[0]), field[1], field[2], value))
+        raise NotImplementedError()
     def readRegisterField(self, field):
-        return TMC_helpers.field_get(self.readRegister(field[0]), field[1], field[2])
+        raise NotImplementedError()

@@ -2,7 +2,7 @@
 # Author: LK
 
 class Module(object):
-    def __init__(self, moduleId=1, connection=None, parent=None):
+    def __init__(self, moduleId=1, connection=None, parent=None, *submodules):
         self.__motors = []
         self.__moduleId = moduleId
         self.__submodules = []
@@ -11,6 +11,8 @@ class Module(object):
         if(parent):
             parent.addSubmodule(self)
             self.__connection = parent.getConnection()
+        for submodule in submodules:
+            submodule(parent=self)
     def setConnection(self, connection):
         self.__connection = connection
     def setModuleId(self, moduleId):
@@ -26,6 +28,8 @@ class Module(object):
     def getSubmodules(self):
         return self.__submodules
     def addMotor(self, motor):
+        for feature in [f for f in self.__bases__ if instanceof(f, Feature)]:
+            motor.addFeatureProvider(feature, self, 1, len(self.__motors))
         self.__motors.append(motor)
         if(self.__parent):
             self.__parent.addMotor(motor)
@@ -33,6 +37,8 @@ class Module(object):
         self.__motors.remove(motor)
         if(self.__parent):
             self.__parent.removeMotor(motor)
+        for i, motor in enumerate(self.__motors):
+            motor.setProviderIndex(self, i)
     def getMotors(self):
         return self.__motors
     def hasFeature(self, feature, recursive=False):
