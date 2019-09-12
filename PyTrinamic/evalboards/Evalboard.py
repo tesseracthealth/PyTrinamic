@@ -14,9 +14,9 @@ class Evalboard(Module):
         self.registers = ic.registers
         self.fields = ic.fields
         self.variants = ic.variants
-    def getIC(self):
+    def getIC(self, index=None):
         if(self.__ics):
-            return self.__ics[0]
+            return self.__ics[index if index else 0]
         return None
     def hasFeature(self, feature, recursive=False):
         if(super().hasFeature(feature, recursive)):

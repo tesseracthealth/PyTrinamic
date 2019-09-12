@@ -4,27 +4,27 @@
 from PyTrinamic.features.Feature import Feature
 
 class TrapezoidRamp(Feature):
-    def trapezoidRamp_setTargetPosition(self, value, axis):
+    def setTargetPosition(self, value, axis):
         raise NotImplementedError()
-    def trapezoidRamp_getTargetPosition(self, axis):
+    def getTargetPosition(self, axis):
         raise NotImplementedError()
-    def trapezoidRamp_setActualPosition(self, value, axis):
+    def setActualPosition(self, value, axis):
         raise NotImplementedError()
-    def trapezoidRamp_getActualPosition(self, axis):
+    def getActualPosition(self, axis):
         raise NotImplementedError()
-    def trapezoidRamp_setTargetVelocity(self, value, axis):
+    def setTargetVelocity(self, value, axis):
         raise NotImplementedError()
-    def trapezoidRamp_getTargetVelocity(self, axis):
+    def getTargetVelocity(self, axis):
         raise NotImplementedError()
-    def trapezoidRamp_setActualVelocity(self, value, axis):
+    def setActualVelocity(self, value, axis):
         raise NotImplementedError()
-    def trapezoidRamp_getActualVelocity(self, axis):
+    def getActualVelocity(self, axis):
         raise NotImplementedError()
-    def trapezoidRamp_setMaximumVelocity(self, value, axis):
+    def setMaximumVelocity(self, value, axis):
         raise NotImplementedError()
-    def trapezoidRamp_getMaximumVelocity(self, axis):
+    def getMaximumVelocity(self, axis):
         raise NotImplementedError()
-    def trapezoidRamp_setMaximumAcceleration(self, value, axis):
+    def setMaximumAcceleration(self, value, axis):
         raise NotImplementedError()
-    def trapezoidRamp_getMaximumAcceleration(self, axis):
+    def getMaximumAcceleration(self, axis):
         raise NotImplementedError()

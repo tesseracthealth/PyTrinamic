@@ -5,27 +5,27 @@ from PyTrinamic.features.TrapezoidRamp import TrapezoidRamp
 from PyTrinamic.features.FeatureProvider import FeatureProvider
 
 class TrapezoidRampModule(TrapezoidRamp, FeatureProvider):
-    def trapezoidRamp_setTargetPosition(self, value, axis=None):
+    def setTargetPosition(self, value, axis=None):
         self.setAxisParameter(self.axisParameter("par::TargetPosition"), (axis if axis else self.getAxis()), value)
-    def trapezoidRamp_getTargetPosition(self, axis=None):
+    def getTargetPosition(self, axis=None):
         return self.getAxisParameter(self.axisParameter("par::TargetPosition"), (axis if axis else self.getAxis()), signed=True)
-    def trapezoidRamp_setActualPosition(self, value, axis=None):
+    def setActualPosition(self, value, axis=None):
         self.setAxisParameter(self.axisParameter("par::ActualPosition"), (axis if axis else self.getAxis()), value)
-    def trapezoidRamp_getActualPosition(self, axis=None):
+    def getActualPosition(self, axis=None):
         return self.getAxisParameter(self.axisParameter("par::ActualPosition"), (axis if axis else self.getAxis()), signed=True)
-    def trapezoidRamp_setTargetVelocity(self, value, axis=None):
+    def setTargetVelocity(self, value, axis=None):
         self.setAxisParameter(self.axisParameter("par::TargetVelocity"), (axis if axis else self.getAxis()), value)
-    def trapezoidRamp_getTargetVelocity(self, axis=None):
+    def getTargetVelocity(self, axis=None):
         return self.getAxisParameter(self.axisParameter("par::TargetVelocity"), (axis if axis else self.getAxis()))
-    def trapezoidRamp_setActualVelocity(self, value, axis=None):
+    def setActualVelocity(self, value, axis=None):
         self.setAxisParameter(self.axisParameter("par::ActualVelocity"), (axis if axis else self.getAxis()), value)
-    def trapezoidRamp_getActualVelocity(self, axis=None):
+    def getActualVelocity(self, axis=None):
         return self.getAxisParameter(self.axisParameter("par::ActualVelocity"), (axis if axis else self.getAxis()))
-    def trapezoidRamp_setMaximumVelocity(self, value, axis=None):
+    def setMaximumVelocity(self, value, axis=None):
         self.setAxisParameter(self.axisParameter("par::MaxVelocity"), (axis if axis else self.getAxis()), value)
-    def trapezoidRamp_getMaximumVelocity(self, axis=None):
+    def getMaximumVelocity(self, axis=None):
         return self.getAxisParameter(self.axisParameter("par::MaxVelocity"), (axis if axis else self.getAxis()))
-    def trapezoidRamp_setMaximumAcceleration(self, value, axis=None):
+    def setMaximumAcceleration(self, value, axis=None):
         self.setAxisParameter(self.axisParameter("par::MaxAcceleration"), (axis if axis else self.getAxis()), value)
-    def trapezoidRamp_getMaximumAcceleration(self, axis=None):
+    def getMaximumAcceleration(self, axis=None):
         return self.getAxisParameter(self.axisParameter("par::MaxAcceleration"), (axis if axis else self.getAxis()))

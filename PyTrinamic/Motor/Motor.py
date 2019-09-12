@@ -10,7 +10,7 @@ class Motor(object):
         self.__connection = connection
         self.__parent = parent
         if(parent):
-            parent.addMotor(self)
+            #parent.addMotor(self)
             self.__channel = parent.getChannel()
             self.__moduleId = parent.getModuleId()
             self.__connection = parent.getConnection()
@@ -18,6 +18,7 @@ class Motor(object):
         for feature in features:
             for prov in [p for p in self.__features[feature] if p[0] == provider]:
                 prov[2] = index
+    # This method is NOT thread safe!
     def getFeatureProvider(self, feature):
         provider = self.__features[feature][0]
         provider[0].setAxis(provider[2])
@@ -35,8 +36,16 @@ class Motor(object):
         if(not self.__features.get(feature)): # List empty
             del self.__features[feature]
     def setFeatureProvider(self, feature, provider):
-        self.__features[feature][0], self.__features[feature][self.__features[feature].index([p for p in self.__features[feature] if p[0] == provider][0])] = self.__features[feature][self.__features[feature].index([p for p in self.__features[feature] if p[0] == provider][0])], self.__features[feature][0]
+        to = self.__features[feature][self.__features[feature].index([p for p in self.__features[feature] if isinstance(p[0], provider)][0])]
+        self.__features[feature][self.__features[feature].index([p for p in self.__features[feature] if isinstance(p[0], provider)][0])] = self.__features[feature][0]
+        self.__features[feature][0] = to
     def hasFeature(self, feature):
         return (True if self.__features.get(feature) else False)
     def listFeatures(self):
         return self.__features.keys()
+    def listFeatureProviders(self, feature):
+        return [p[0] for p in self.__features[feature]]
+    def listFeatureProviderMetas(self, feature):
+        return self.__features[feature]
+    def getFeatureProviderMeta(self, feature):
+        return self.__features[feature][0]

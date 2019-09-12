@@ -12,10 +12,10 @@ class Module(object):
         self.__connection = connection
         self.__parent = parent
         if(parent):
-            parent.addSubmodule(self)
+            parent.addSubmodule(instance=self)
             self.__connection = parent.getConnection()
         for submodule in submodules:
-            submodule(parent=self)
+            self.addSubmodule(clazz=submodule)
     def setConnection(self, connection):
         self.__connection = connection
     def setModuleId(self, moduleId):
@@ -24,15 +24,18 @@ class Module(object):
         return self.__connection
     def getModuleId(self):
         return self.__moduleId
-    def addSubmodule(self, submodule):
-        self.__submodules.append(submodule)
+    def addSubmodule(self, instance=None, clazz=None):
+        if(instance and not clazz):
+            self.__submodules.append(instance)
+        if(clazz and not instance):
+            self.__submodules.append(clazz(parent=self))
     def removeSubmodule(self, submodule):
         self.__submodules.remove(submodule)
     def getSubmodules(self):
         return self.__submodules
     def addMotor(self, motor):
         for feature in [f for f in self.__class__.__mro__ if ((self.__class__ != f) and isinstance(f(), Feature) and not isinstance(f(), FeatureProvider))]:
-            motor.addFeatureProvider(feature, self, 0, len(self.__motors))
+            motor.addFeatureProvider(feature, self, 0, len(self.__motors)) # If new motor gets added, len(self.__motors) increases
         self.__motors.append(motor)
         if(self.__parent):
             self.__parent.addMotor(motor)
