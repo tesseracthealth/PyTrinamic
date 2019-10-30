@@ -81,8 +81,7 @@ setuptools.setup(
         "PyTrinamic/features/TrapezoidRampModule",
         "PyTrinamic/helpers",
         "PyTrinamic/cli",
-        "PyTrinamic/version",
-        "PyTrinamic/xml/XMLHandler"
+        "PyTrinamic/version"
     ],
     scripts=[
         "PyTrinamic/examples/evalboards/TMC4671/TMC4671_eval_BLDC_ABN_encoder_offset_estimation.py",
