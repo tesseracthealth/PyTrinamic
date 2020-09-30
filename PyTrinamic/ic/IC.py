@@ -14,7 +14,6 @@ class IC(object):
         self.__connection = connection
         self.__parent = parent
         if(parent):
-            parent.addSubmodule(self)
             self.__connection = parent.getConnection()
             self.__moduleId = parent.getModuleId()
     def addMotors(self, count):

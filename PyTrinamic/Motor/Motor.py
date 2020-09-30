@@ -18,7 +18,6 @@ class Motor(object):
         for feature in features:
             for prov in [p for p in self.__features[feature] if p[0] == provider]:
                 prov[2] = index
-    # This method is NOT thread safe!
     def getFeatureProvider(self, feature):
         provider = self.__features[feature][0]
         provider[0].setAxis(provider[2])

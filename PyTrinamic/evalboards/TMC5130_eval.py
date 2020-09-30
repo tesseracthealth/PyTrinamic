@@ -63,6 +63,7 @@ class TMC5130_eval(Evalboard, StallGuard2Module, TrapezoidRampModule):
         "par::HighSpeedChopperMode": 27,
         "par::HighSpeedFullstepMode": 28,
         "par::MeasuredSpeed": 29,
+        "par::RampType": 30,
         "par::I_scale_analog": 33,
         "par::internal_Rsense": 34,
         "par::MicrostepResolution": 140,
@@ -98,7 +99,7 @@ class TMC5130_eval(Evalboard, StallGuard2Module, TrapezoidRampModule):
 
     def __init__(self, moduleId=1, connection=None, parent=None):
         super().__init__(moduleId, connection, parent)
-        self.setIC(TMC5130(channel=0, moduleId=self.getModuleId(), connection=self.getConnection(), parent=self))
+        self.setIC(TMC5130(channel=0, parent=self))
 
     # Use the motion controller functions for register access
     def writeRegister(self, channel, registerAddress, value):

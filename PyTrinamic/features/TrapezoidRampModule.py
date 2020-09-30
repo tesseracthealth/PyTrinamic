@@ -29,3 +29,9 @@ class TrapezoidRampModule(TrapezoidRamp, FeatureProvider):
         self.setAxisParameter(self.axisParameter("par::MaxAcceleration"), (axis if axis else self.getAxis()), value)
     def getMaximumAcceleration(self, axis=None):
         return self.getAxisParameter(self.axisParameter("par::MaxAcceleration"), (axis if axis else self.getAxis()))
+    def setRampMode(self, value, axis=None):
+        if(self.axisParameter("par::RampType")):
+            self.setAxisParameter(self.axisParameter("par::RampType"), (axis if axis else self.getAxis()), value)
+    def getRampMode(self, axis=None):
+        if(self.axisParameter("par::RampType")):
+            return self.getAxisParameter(self.axisParameter("par::RampType"), (axis if axis else self.getAxis()))

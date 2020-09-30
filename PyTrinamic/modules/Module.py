@@ -3,6 +3,7 @@
 
 from PyTrinamic.features.Feature import Feature
 from PyTrinamic.features.FeatureProvider import FeatureProvider
+from PyTrinamic.ic.IC import IC
 
 class Module(object):
     def __init__(self, moduleId=1, connection=None, parent=None, submodules=[]):
@@ -12,10 +13,9 @@ class Module(object):
         self.__connection = connection
         self.__parent = parent
         if(parent):
-            parent.addSubmodule(instance=self)
             self.__connection = parent.getConnection()
         for submodule in submodules:
-            self.addSubmodule(clazz=submodule)
+            self.addSubmodule(submodule)
     def setConnection(self, connection):
         self.__connection = connection
     def setModuleId(self, moduleId):
@@ -24,11 +24,11 @@ class Module(object):
         return self.__connection
     def getModuleId(self):
         return self.__moduleId
-    def addSubmodule(self, instance=None, clazz=None):
-        if(instance and not clazz):
-            self.__submodules.append(instance)
-        if(clazz and not instance):
-            self.__submodules.append(clazz(parent=self))
+    def addSubmodule(self, submodule):
+        if(isinstance(submodule, Module) or isinstance(submodule, IC)):
+            self.__submodules.append(submodule)
+        else:
+            self.__submodules.append(submodule(parent=self))
     def removeSubmodule(self, submodule):
         self.__submodules.remove(submodule)
     def getSubmodules(self):

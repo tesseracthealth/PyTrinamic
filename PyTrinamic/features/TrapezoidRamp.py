@@ -41,3 +41,9 @@ class TrapezoidRamp(Feature):
     @staticmethod
     def getMaximumAcceleration(motor):
         return motor[TrapezoidRamp].getMaximumAcceleration(motor.getFeatureProviderMeta(TrapezoidRamp)[2])
+    @staticmethod
+    def setRampMode(value, motor):
+        return motor[TrapezoidRamp].setRampMode(value, motor.getFeatureProviderMeta(TrapezoidRamp)[2])
+    @staticmethod
+    def getRampMode(motor):
+        return motor[TrapezoidRamp].getRampMode(motor.getFeatureProviderMeta(TrapezoidRamp)[2])

@@ -29,3 +29,9 @@ class TrapezoidRampIC(TrapezoidRamp, FeatureProvider):
         return self.writeRegisterField(self.fields.AMAX, value, (axis if axis else self.getAxis()))
     def getMaximumAcceleration(self, axis=None):
         return self.readRegisterField(self.fields.AMAX, (axis if axis else self.getAxis()))
+    def setRampMode(self, value, axis=None):
+        if(hasattr(self.fields, "RAMPMODE")):
+            return self.writeRegisterField(self.fields.RAMPMODE, value, (axis if axis else self.getAxis()))
+    def getRampMode(self, axis=None):
+        if(hasattr(self.fields, "RAMPMODE")):
+            return self.readRegisterField(self.fields.RAMPMODE, (axis if axis else self.getAxis()))
