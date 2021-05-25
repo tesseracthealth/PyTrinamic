@@ -5,10 +5,13 @@ Created on 03.12.2019
 '''
 
 from PyTrinamic.modules.tmcl_module import tmcl_module
+from PyTrinamic.features.StallGuard2Module import StallGuard2Module
+from PyTrinamic.features.LinearRampModule import LinearRampModule
+from PyTrinamic.features.MotorControl import MotorControl
 
-class TMCM_1270(tmcl_module):
+class TMCM_1270(tmcl_module, LinearRampModule, MotorControl, StallGuard2Module):
 
-    class APs():
+    class APs:
         TargetPosition                 = 0
         ActualPosition                 = 1
         TargetVelocity                 = 2
@@ -50,16 +53,16 @@ class TMCM_1270(tmcl_module):
         TOff                           = 167
         SEIMIN                         = 168
         SECDS                          = 169
-        smartEnergyHysteresis          = 170
+        SmartEnergyHysteresis          = 170
         SECUS                          = 171
-        smartEnergyHysteresisStart     = 172
+        SmartEnergyHysteresisStart     = 172
         SG2FilterEnable                = 173
         SG2Threshold                   = 174
         ShortToGroundProtection        = 177
         VSense                         = 179
-        smartEnergyActualCurrent       = 180
-        smartEnergyStallVelocity       = 181
-        smartEnergyThresholdSpeed      = 182
+        SmartEnergyActualCurrent       = 180
+        SmartEnergyStallVelocity       = 181
+        SmartEnergyThresholdSpeed      = 182
         RandomTOffMode                 = 184
         ChopperSynchronization         = 185
         PWMThresholdSpeed              = 186
@@ -87,11 +90,10 @@ class TMCM_1270(tmcl_module):
         PowerDownDelay                 = 214
         UnitMode                       = 255
 
-    class ENUMs():
+    class ENUMs:
         pass
 
-    class GPs():
-
+    class GPs:
         CANBitrate                    = 69
         CANSendId                     = 70
         CANReceiveId                  = 71
@@ -107,7 +109,7 @@ class TMCM_1270(tmcl_module):
         randomNumber                  = 133
 
     def __init__(self, connection, module_id=1):
-        super().__init__(connection, module_id)
+        tmcl_module.__init__(self, connection, module_id)
 
         self.MOTORS = 1
         self.__default_motor = 0
@@ -117,20 +119,20 @@ class TMCM_1270(tmcl_module):
         return __file__.replace("TMCM_1270.py", "TMCM_1270_V3.22.eds")
 
     def showChipInfo(self):
-        ("The TMCM-1270 is a smart stepper motor driver module. The module is controlled via a CAN bus interface. Voltage supply: 6 - 24V");
+        print("The TMCM-1270 is a smart stepper motor driver module. The module is controlled via a CAN bus interface. Voltage supply: 6 - 24V")
 
     # Motion Control functions
     def rotate(self, axis, velocity):
         self.setTargetVelocity(axis, velocity)
 
     def stop(self, axis):
-        self.rotate(axis, 0)
+        self.rotate(0, axis)
 
     def moveTo(self, axis, position, velocity=None):
         if velocity:
             self.setMaxVelocity(axis, velocity)
 
-        self.connection.move(0, self.__default_motor, position)
+        self.connection.move(0, axis, position, self.MODULE_ID)
         self.setTargetPosition(axis, position)
 
     def moveBy(self, axis, difference, velocity=None):
@@ -153,56 +155,6 @@ class TMCM_1270(tmcl_module):
     def setMaxCurrent(self, axis, current):
         self.setAxisParameter(self.APs.MaxCurrent, axis, current)
 
-    # StallGuard2 Functions
-    def setStallguard2Filter(self, axis, enableFilter):
-        self.setAxisParameter(self.APs.StallGuard2FilterEnable, axis, enableFilter)
-
-    def setStallguard2Threshold(self, axis, threshold):
-        self.setAxisParameter(self.APs.StallGuard2Threshold, axis, threshold)
-
-    def setStopOnStallVelocity(self, axis, velocity):
-        self.setAxisParameter(self.APs.StopOnStall, axis, velocity)
-
-    # Motion parameter functions
-    def getTargetPosition(self, axis):
-        return self.axisParameter(self.APs.TargetPosition, axis)
-
-    def setTargetPosition(self, axis, position):
-        self.setAxisParameter(self.APs.TargetPosition, axis, position)
-
-    def getActualPosition(self, axis):
-        return self.axisParameter(self.APs.ActualPosition, axis)
-
-    def setActualPosition(self, axis, position):
-        return self.setAxisParameter(self.APs.ActualPosition, axis, position)
-
-    def getTargetVelocity(self, axis):
-        return self.axisParameter(self.APs.TargetVelocity, axis)
-
-    def setTargetVelocity(self, axis, velocity):
-        self.setAxisParameter(self.APs.TargetVelocity, axis, velocity)
-
-    def getActualVelocity(self, axis):
-        return self.axisParameter(self.APs.ActualVelocity, axis)
-
-    def getMaxVelocity(self, axis):
-        return self.axisParameter(self.APs.MaxVelocity, axis)
-
-    def setMaxVelocity(self, axis, velocity):
-        self.setAxisParameter(self.APs.MaxVelocity, axis, velocity)
-
-    def getMaxAcceleration(self, axis):
-        return self.axisParameter(self.APs.MaxAcceleration, axis)
-
-    def setMaxAcceleration(self, axis, acceleration):
-        self.setAxisParameter(self.APs.MaxAcceleration, axis, acceleration)
-
-    def getRampMode(self, axis):
-        return self.axisParameter(self.APs.RampMode, axis)
-
-    def setRampMode(self, axis, mode):
-        return self.setAxisParameter(self.APs.RampMode, axis, mode)
-
     # Status functions
     def getStatusFlags(self, axis):
         return self.axisParameter(self.APs.TMC262ErrorFlags, axis)
@@ -215,13 +167,12 @@ class TMCM_1270(tmcl_module):
 
     # IO pin functions
     def analogInput(self, x):
-        return self.connection.analogInput(x)
+        return self.connection.analogInput(x, self.MODULE_ID)
 
     def digitalInput(self, x):
-        return self.connection.digitalInput(x)
+        return self.connection.digitalInput(x, self.MODULE_ID)
 
     def showMotionConfiguration(self):
         print("Motion configuration:")
-        print("\tMax velocity: " + str(self.getMaxVelocity(self.__default_motor)))
-        print("\tAcceleration: " + str(self.getMaxAcceleration(self.__default_motor)))
-        print("\tRamp mode: " + ("position" if (self.getRampMode(self.__default_motor) == 0) else "velocity"))
+        print("\tMax velocity: " + str(self.getMaxVelocity(axis)))
+        print("\tAcceleration: " + str(self.getMaxAcceleration(axis)))
