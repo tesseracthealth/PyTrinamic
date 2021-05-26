@@ -171,8 +171,3 @@ class TMCM_1270(tmcl_module, LinearRampModule, MotorControl, StallGuard2Module):
 
     def digitalInput(self, x):
         return self.connection.digitalInput(x, self.MODULE_ID)
-
-    def showMotionConfiguration(self):
-        print("Motion configuration:")
-        print("\tMax velocity: " + str(self.getMaxVelocity(axis)))
-        print("\tAcceleration: " + str(self.getMaxAcceleration(axis)))
