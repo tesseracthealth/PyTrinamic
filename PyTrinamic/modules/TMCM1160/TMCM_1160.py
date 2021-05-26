@@ -5,10 +5,13 @@ Created on 09.04.2019
 '''
 
 from PyTrinamic.modules.tmcl_module import tmcl_module
+from PyTrinamic.features.StallGuard2Module import StallGuard2Module
+from PyTrinamic.features.LinearRampModule import LinearRampModule
+from PyTrinamic.features.MotorControl import MotorControl
 
-class TMCM_1160(tmcl_module):
+class TMCM_1160(tmcl_module, StallGuard2Module, LinearRampModule, MotorControl):
 
-    class APs():
+    class APs:
         TargetPosition                 = 0
         ActualPosition                 = 1
         TargetVelocity                 = 2
@@ -53,7 +56,7 @@ class TMCM_1160(tmcl_module):
         ShortDetectionTime             = 178
         VSense                         = 179
         smartEnergyActualCurrent       = 180
-        smartEnergyStallVelocity       = 181
+        SmartEnergyStallVelocity       = 181
         smartEnergyThresholdSpeed      = 182
         smartEnergySlowRunCurrent      = 183
         RandomTOffMode                 = 184
@@ -77,10 +80,10 @@ class TMCM_1160(tmcl_module):
         ExternalEncoderMax_Deviation   = 218
         Step_DirectionMode             = 254
 
-    class ENUMs():
+    class ENUMs:
         pass
 
-    class GPs():
+    class GPs:
         timer_0                        = 0
         timer_1                        = 1
         timer_2                        = 2
@@ -114,7 +117,7 @@ class TMCM_1160(tmcl_module):
         randomNumber                   = 133
 
     def __init__(self, connection, module_id=1):
-        super().__init__(connection, module_id)
+        tmcl_module.__init__(self, connection, module_id)
 
         self.MOTORS = 1
         self.__default_motor = 0
@@ -124,7 +127,7 @@ class TMCM_1160(tmcl_module):
         return __file__.replace("TMCM_1160.py", "TMCM_1160_V3.20.eds")
 
     def showChipInfo(self):
-        print("The TMCM-1160 is a single axis controller/driver module for 2-phase bipolar stepper motors with state of theart feature set. Voltage supply: 12 - 48V");
+        print("The TMCM-1160 is a single axis controller/driver module for 2-phase bipolar stepper motors with state of theart feature set. Voltage supply: 12 - 48V")
 
     # Motion Control functions
     def rotate(self, axis, velocity):
@@ -151,62 +154,6 @@ class TMCM_1160(tmcl_module):
         return position
 
     # Current control functions
-    def setMotorRunCurrent(self, axis, current):
-        self.setMaxCurrent(axis, current)
-
-    def setMotorStandbyCurrent(self, axis, current):
-        self.setAxisParameter(self.APs.StandbyCurrent, axis, current)
-
-    def getMaxCurrent(self, axis):
-        return self.axisParameter(self.APs.MaxCurrent, axis)
-
-    def setMaxCurrent(self, axis, current):
-        self.setAxisParameter(self.APs.MaxCurrent, axis, current)
-
-    # StallGuard2 Functions
-    def setStallguard2Filter(self, axis, enableFilter):
-        self.setAxisParameter(self.APs.SG2FilterEnable, axis, enableFilter)
-
-    def setStallguard2Threshold(self, axis, threshold):
-        self.setAxisParameter(self.APs.SG2Threshold, axis, threshold)
-
-    def setStopOnStallVelocity(self, axis, velocity):
-        self.setAxisParameter(self.APs.smartEnergyStallVelocity, axis, velocity)
-
-    # Motion parameter functions
-    def getTargetPosition(self, axis):
-        return self.axisParameter(self.APs.TargetPosition, axis)
-
-    def setTargetPosition(self, axis, position):
-        self.setAxisParameter(self.APs.TargetPosition, axis, position)
-
-    def getActualPosition(self, axis):
-        return self.axisParameter(self.APs.ActualPosition, axis)
-
-    def setActualPosition(self, axis, position):
-        return self.setAxisParameter(self.APs.ActualPosition, axis, position)
-
-    def getTargetVelocity(self, axis):
-        return self.axisParameter(self.APs.TargetVelocity, axis)
-
-    def setTargetVelocity(self, axis, velocity):
-        self.setAxisParameter(self.APs.TargetVelocity, axis, velocity)
-
-    def getActualVelocity(self, axis):
-        return self.axisParameter(self.APs.ActualVelocity, axis)
-
-    def getMaxVelocity(self, axis):
-        return self.axisParameter(self.APs.MaxVelocity, axis)
-
-    def setMaxVelocity(self, axis, velocity):
-        self.setAxisParameter(self.APs.MaxVelocity, axis, velocity)
-
-    def getMaxAcceleration(self, axis):
-        return self.axisParameter(self.APs.MaxAcceleration, axis)
-
-    def setMaxAcceleration(self, axis, acceleration):
-        self.setAxisParameter(self.APs.MaxAcceleration, axis, acceleration)
-
     def getRampMode(self, axis):
         return self.axisParameter(self.APs.RampMode, axis)
 
@@ -230,8 +177,6 @@ class TMCM_1160(tmcl_module):
     def digitalInput(self, x):
         return self.connection.digitalInput(x)
 
-    def showMotionConfiguration(self):
-        print("Motion configuration:")
-        print("\tMax velocity: " + str(self.getMaxVelocity(self.__default_motor)))
-        print("\tAcceleration: " + str(self.getMaxAcceleration(self.__default_motor)))
-        print("\tRamp mode: " + ("position" if (self.getRampMode(self.__default_motor) == 0) else "velocity"))
+    def showMotionConfiguration(self, axis):
+        super().showMotionConfiguration(axis)
+        print("\tRamp mode: " + ("position" if (self.getRampMode(axis) == 0) else "velocity"))

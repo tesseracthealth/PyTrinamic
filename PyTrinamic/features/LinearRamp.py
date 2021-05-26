@@ -37,3 +37,8 @@ class LinearRamp(Feature):
 
     def setMaxAcceleration(self, axis, acceleration):
         raise NotImplementedError()
+
+    def showMotionConfiguration(self, axis):
+        print("Motion configuration:")
+        print("\tMax velocity: " + str(self.getMaxVelocity(axis)))
+        print("\tAcceleration: " + str(self.getMaxAcceleration(axis)))
