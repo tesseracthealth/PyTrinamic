@@ -5,11 +5,14 @@ Created on 05.06.2020
 '''
 
 from PyTrinamic.modules.tmcl_module import tmcl_module
+from PyTrinamic.features.StallGuard2Module import StallGuard2Module
+from PyTrinamic.features.LinearRampModule import LinearRampModule
+from PyTrinamic.features.MotorControl import MotorControl
 
-class TMCM_3110(tmcl_module):
+class TMCM_3110(tmcl_module, StallGuard2Module, LinearRampModule, MotorControl):
     MOTORS = 3
 
-    class APs():
+    class APs:
         TargetPosition                 = 0
         ActualPosition                 = 1
         TargetVelocity                 = 2
@@ -54,7 +57,7 @@ class TMCM_3110(tmcl_module):
         ShortDetectionTime             = 178
         VSense                         = 179
         smartEnergyActualCurrent       = 180
-        smartEnergyStallVelocity       = 181
+        SmartEnergyStallVelocity       = 181
         smartEnergyThresholdSpeed      = 182
         smartEnergySlowRunCurrent      = 183
         RandomTOffMode                 = 184
@@ -75,6 +78,12 @@ class TMCM_3110(tmcl_module):
         GroupIndex                     = 213
         PowerDownDelay                 = 214
         StepDirectionMode              = 254
+
+    class ENUMs:
+        pass
+
+    class GPs:
+        pass
 
     @staticmethod
     def getEdsFile():
@@ -108,62 +117,6 @@ class TMCM_3110(tmcl_module):
         return position
 
     # Current control functions
-    def setMotorRunCurrent(self, axis, current):
-        self.setMaxCurrent(axis, current)
-
-    def setMotorStandbyCurrent(self, axis, current):
-        self.setAxisParameter(self.APs.StandbyCurrent, axis, current)
-
-    def getMaxCurrent(self, axis):
-        return self.axisParameter(self.APs.MaxCurrent, axis)
-
-    def setMaxCurrent(self, axis, current):
-        self.setAxisParameter(self.APs.MaxCurrent, axis, current)
-
-    # StallGuard2 Functions
-    def setStallguard2Filter(self, axis, enableFilter):
-        self.setAxisParameter(self.APs.SG2FilterEnable, axis, enableFilter)
-
-    def setStallguard2Threshold(self, axis, threshold):
-        self.setAxisParameter(self.APs.SG2Threshold, axis, threshold)
-
-    def setStopOnStallVelocity(self, axis, velocity):
-        self.setAxisParameter(self.APs.smartEnergyStallVelocity, axis, velocity)
-
-    # Motion parameter functions
-    def getTargetPosition(self, axis):
-        return self.axisParameter(self.APs.TargetPosition, axis)
-
-    def setTargetPosition(self, axis, position):
-        self.setAxisParameter(self.APs.TargetPosition, axis, position)
-
-    def getActualPosition(self, axis):
-        return self.axisParameter(self.APs.ActualPosition, axis)
-
-    def setActualPosition(self, axis, position):
-        return self.setAxisParameter(self.APs.ActualPosition, axis, position)
-
-    def getTargetVelocity(self, axis):
-        return self.axisParameter(self.APs.TargetVelocity, axis)
-
-    def setTargetVelocity(self, velocity, axis):
-        self.setAxisParameter(self.APs.TargetVelocity, axis, velocity)
-
-    def getActualVelocity(self, axis):
-        return self.axisParameter(self.APs.ActualVelocity, axis)
-
-    def getMaxVelocity(self, axis):
-        return self.axisParameter(self.APs.MaxVelocity, axis)
-
-    def setMaxVelocity(self, axis, velocity):
-        self.setAxisParameter(self.APs.MaxVelocity, axis, velocity)
-
-    def getMaxAcceleration(self, axis):
-        return self.axisParameter(self.APs.MaxAcceleration, axis)
-
-    def setMaxAcceleration(self, axis, acceleration):
-        self.setAxisParameter(self.APs.MaxAcceleration, axis, acceleration)
-
     def getRampMode(self, axis):
         return self.axisParameter(self.APs.RampMode, axis)
 
@@ -186,3 +139,7 @@ class TMCM_3110(tmcl_module):
 
     def digitalInput(self, x):
         return self.connection.digitalInput(x, self.module_id)
+
+    def showMotionConfiguration(self, axis):
+        super().showMotionConfiguration(axis)
+        print("\tRamp mode: " + ("position" if (self.getRampMode(axis) == 0) else "velocity"))
