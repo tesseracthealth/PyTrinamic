@@ -180,3 +180,7 @@ class TMCM_1161(tmcl_module, StallGuard2Module, LinearRampModule, MotorControl):
 
     def digitalInput(self, x):
         return self.connection.digitalInput(x, self.MODULE_ID)
+
+    def showMotionConfiguration(self, axis):
+        super().showMotionConfiguration(axis)
+        print("\tRamp mode: " + ("position" if (self.getRampMode(axis) == 0) else "velocity"))
