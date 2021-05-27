@@ -107,6 +107,9 @@ setuptools.setup(
         "PyTrinamic/examples/modules/TMCM_6212/TMCM_6212_CANopen_PV_Mode.py",
         "PyTrinamic/examples/modules/TMCM_6212/TMCM_6212_TMCL_rotateDemo.py",
         "PyTrinamic/examples/tools/FirmwareUpdate.py",
+        "PyTrinamic/tests/features/LinearRamp_dummy.py",
+        "PyTrinamic/tests/features/MotorControl_dummy.py",
+        "PyTrinamic/tests/features/StallGuard2_dummy.py"
     ],
     classifiers=[
         "Programming Language :: Python :: 3",
