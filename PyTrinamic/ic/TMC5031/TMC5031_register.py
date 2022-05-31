@@ -23,7 +23,7 @@ class TMC5031_register:
     VSTART         = ( 0x23, 0x43)
     A1             = ( 0x24, 0x44) # ATM , no motor validation possible
     V1             = ( 0x25, 0x45)
-    AMAX           = ( 0x26, 0x46)
+    AMAX           = ( 0x26, 0x46) # writes seem to work, but reads all return 0
     VMAX           = ( 0x27, 0x47)
     DMAX           = ( 0x28, 0x48)
     D1             = ( 0x2A, 0x4A)
@@ -85,5 +85,6 @@ class TMC5031_register:
     MSCNT          = ( MSCNT_M1, MSCNT_M2)
     MSCURACT       = ( MSCURACT_M1, MSCURACT_M2)
     DRV_STATUS     = ( DRV_STATUS_M1, DRV_STATUS_M2)
-
+    XLATCH         = ( XLATCH_M1, XLATCH_M2)
+    
 
